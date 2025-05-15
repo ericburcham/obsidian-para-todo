@@ -75,7 +75,7 @@ export class ParaTodoSettingTab extends PluginSettingTab {
             text: 'Force Sync Now',
             cls: 'mod-cta',
         }).addEventListener('click', () => {
-            this.plugin.syncTodos();
+            this.plugin.todoSynchronizer.syncTodos();
         });
     }
 }

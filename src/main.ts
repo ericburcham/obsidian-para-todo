@@ -1,4 +1,4 @@
-﻿import { Plugin } from 'obsidian';
+﻿import { Plugin, TFile } from 'obsidian';
 import { ParaTodoSettings, DEFAULT_SETTINGS } from './settings';
 import { ParaTodoSettingTab } from './settingsTab';
 import { TodoCollector } from './todoCollector';
@@ -6,8 +6,8 @@ import { TodoSynchronizer } from './todoSynchronizer';
 
 export default class ParaTodoPlugin extends Plugin {
     settings: ParaTodoSettings;
-    private todoCollector: TodoCollector;
-    private todoSynchronizer: TodoSynchronizer;
+    todoCollector: TodoCollector;
+    todoSynchronizer: TodoSynchronizer;
     private syncIntervalId: number | null = null;
 
     async onload() {
@@ -37,7 +37,9 @@ export default class ParaTodoPlugin extends Plugin {
         // Set up file modification listeners
         this.registerEvent(
             this.app.vault.on('modify', (file) => {
-                this.todoSynchronizer.handleFileModification(file);
+                if (file instanceof TFile) {
+                    this.todoSynchronizer.handleFileModification(file);
+                }
             })
         );
 

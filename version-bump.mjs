@@ -1,4 +1,8 @@
-﻿const { writeFileSync } = require('fs');
+﻿import { readFileSync, writeFileSync } from 'fs';
+import { createRequire } from 'module';
+
+// Create a require function to import JSON files
+const require = createRequire(import.meta.url);
 
 // Reading the current versions
 const manifest = require('./manifest.json');

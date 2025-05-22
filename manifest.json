@@ -1,10 +1,10 @@
 ﻿{
-  "id": "obsidian-para-todo",
-  "name": "PARA TODO",
+  "id": "obsidian-para-todo-first-draft",
+  "name": "PARA TODO Plugin",
   "version": "1.0.0",
   "minAppVersion": "0.15.0",
   "description": "Synchronizes TODO items across your PARA system folders",
-  "author": "Your Name",
-  "authorUrl": "https://github.com/yourusername",
+  "author": "Eric Burcham",
+  "authorUrl": "https://github.com/ericburcham",
   "isDesktopOnly": false
 }

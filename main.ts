@@ -3,11 +3,11 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 // Remember to rename these classes and interfaces!
 
 interface HelloWorldPluginSettings {
-	mySetting: string;
+	message: string;
 }
 
 const DEFAULT_SETTINGS: HelloWorldPluginSettings = {
-	mySetting: 'default'
+	message: 'Hello World!'
 }
 
 export default class HelloWorldPlugin extends Plugin {
@@ -19,7 +19,7 @@ export default class HelloWorldPlugin extends Plugin {
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Hello World', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('Hello World!');
+			new Notice(this.settings.message);
 		});
 
 		// Perform additional things with the ribbon
@@ -67,7 +67,7 @@ export default class HelloWorldPlugin extends Plugin {
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+		this.addSettingTab(new HelloWorldPluginSettingTab(this.app, this));
 
 		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
 		// Using this function will automatically remove the event listener when this plugin is disabled.
@@ -108,7 +108,7 @@ class SampleModal extends Modal {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class HelloWorldPluginSettingTab extends PluginSettingTab {
 	plugin: HelloWorldPlugin;
 
 	constructor(app: App, plugin: HelloWorldPlugin) {
@@ -122,13 +122,13 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('Display message')
+			.setDesc('Displays when the ribbon icon is clicked')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
+				.setPlaceholder('Enter your message')
+				.setValue(this.plugin.settings.message)
 				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
+					this.plugin.settings.message = value;
 					await this.plugin.saveSettings();
 				}));
 	}
